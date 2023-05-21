@@ -328,7 +328,7 @@ vector<int> busqueda_vecindario(vector<bool> &dlb,vector<int> solucion_actual,ve
                 }
             }
             //hemos salido del 'for' --> no se ha encontrado una mejor solucion
-            dlb[i]=false;
+            dlb[i]=true;
         }
     }
     //devolvemos la última solucion vecina generada en el vecindario de la solucion inicial considerada...
