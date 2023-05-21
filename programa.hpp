@@ -307,7 +307,7 @@ Bucle interno, en resumen, se focaliza en una determinada solucion actual, y gen
 */
 vector<int> busqueda_vecindario(vector<bool> &dlb,vector<int> solucion_actual,vector<vector<int>> matriz_flujo,vector<vector<int>> matriz_distancia){
     int n=dlb.size();
-    bool mejora=false;
+    //bool mejora=false;
 
     //fijando la solucion actual, generamos su vecindario, generando primero las soluciones vecinas
     //intercambiando la localizacion asignada a una determinada unidad 'i' con el resto...
@@ -315,7 +315,7 @@ vector<int> busqueda_vecindario(vector<bool> &dlb,vector<int> solucion_actual,ve
     for(int i=0;i<n;i++){
         if(!dlb[i]){
         //soluciones vecinas que podemos generar utilizando la unidad 'i'
-            mejora=false;
+            //mejora=false;
             for(int j=0;j<n;j++){
                 //intercambiamos la localizacion de la unidad 'i' con la del resto de unidades
                 if(j==i) continue;
@@ -323,15 +323,12 @@ vector<int> busqueda_vecindario(vector<bool> &dlb,vector<int> solucion_actual,ve
                 if(diferencia_coste(solucion_actual,i,j,matriz_flujo,matriz_distancia)<0){
                     //solucion genera es mejor...
                     swap(solucion_actual[i],solucion_actual[j]);
-                    dlb[i]=false;
-                    dlb[j]=false;
-                    mejora=true;
+                    dlb[j]=false; //participa en una mejor solucion
+                    return solucion_actual;
                 }
             }
-            if(!mejora){
-                //la unidad 'i' no nos ha permitido generar soluciones vecinas de mayor calidad, no nos sirve
-                dlb[i]=true;
-            }
+            //hemos salido del 'for' --> no se ha encontrado una mejor solucion
+            dlb[i]=false;
         }
     }
     //devolvemos la última solucion vecina generada en el vecindario de la solucion inicial considerada...
